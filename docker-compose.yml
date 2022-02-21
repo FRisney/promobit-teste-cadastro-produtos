@@ -1,0 +1,42 @@
+version: '3.7'
+
+services:
+    database:
+        build:
+            context: docker/mysql
+        ports:
+            - "3306:3306"
+        env_file:
+            - docker/database-root.env
+            - docker/database.env
+        volumes:
+            - ./_data/mysql:/var/lib/mysql
+            - ./docker/mysql/sql/:/docker-entrypoint-initdb.d/
+
+    php-fpm:
+        build:
+            dockerfile: docker/php/Dockerfile
+            context: "."
+        image: php-fpm
+        environment:
+            docker: "true"
+        env_file:
+            - docker/database.env
+        ports:
+            - "9000"
+        volumes:
+            - ./:/app
+        depends_on:
+            -   database
+
+    php-nginx:
+        build:
+            dockerfile: docker/nginx/Dockerfile
+            context: "."
+        image: php-nginx
+        restart: unless-stopped
+        tty: true
+        ports:
+            - "80:80"
+        volumes:
+            - ./:/app
