@@ -1,5 +1,22 @@
 # Desafio Promobit
 
+## instruções de inicialização
+1. `composer update`
+2. `docker-compose up -d`
+3. No navegador acessar http://localhost
+
+## Endpoints
+- GET `/products`
+    * Listagem de produtos.
+- GET `/products/:product_id`
+    * Detalhes do produto
+- POST `/products`
+    * Cadastro de novo produto.
+- PUT `/products/:product_id`
+    * Atualizar produto específico.
+
+---
+
 ⚠️ **Atenção**: Esse teste possui uma etapa de lógica e uma etapa prática, para fazer o teste de lógica acesse: [teste-logica](https://github.com/Promobit/teste-logica)
 
 - [Desafio Promobit](#desafio-promobit)
